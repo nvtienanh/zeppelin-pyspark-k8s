@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: zeppelin-server
+  namespace: spark
+  labels:
+    app.kubernetes.io/name: zeppelin-server
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/add-base-url: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+spec:
+  tls:
+    - hosts:
+        - zeppelin.yourdomain.com
+      secretName: ssl-zeppelin.yourdomain.com
+  rules:
+    - host: zeppelin.yourdomain.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: zeppelin-server
+                port:
+                  number: 80

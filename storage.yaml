@@ -1,0 +1,104 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: zeppelin-notebook-pv
+  namespace: spark
+  labels:
+    app.kubernetes.io/name: zeppelin-server
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: your-nfs-server-ip
+    path: "/nfs/zeppelin/notebook"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: zeppelin-notebook-pvc
+  namespace: spark
+  labels:
+    app.kubernetes.io/name: zeppelin-server
+spec:
+  selector:
+    matchLabels: #Select a volume with this labels
+      app.kubernetes.io/name: zeppelin-server
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  volumeName: zeppelin-notebook-pv
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: zeppelin-custom-k8s-pv
+  namespace: spark
+  labels:
+    app.kubernetes.io/name: zeppelin-server
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: your-nfs-server-ip
+    path: "/nfs/zeppelin/custom-k8s"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: zeppelin-custom-k8s-pvc
+  namespace: spark
+  labels:
+    app.kubernetes.io/name: zeppelin-server
+spec:
+  selector:
+    matchLabels: #Select a volume with this labels
+      app.kubernetes.io/name: zeppelin-server
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  volumeName: zeppelin-custom-k8s-pv
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: zeppelin-server-conf-pv
+  namespace: spark
+  labels:
+    app.kubernetes.io/name: zeppelin-server
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: your-nfs-server-ip
+    path: "/nfs/zeppelin/conf"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: zeppelin-server-conf-pvc
+  namespace: spark
+  labels:
+    app.kubernetes.io/name: zeppelin-server
+spec:
+  selector:
+    matchLabels: #Select a volume with this labels
+      app.kubernetes.io/name: zeppelin-server
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  volumeName: zeppelin-server-conf-pv
