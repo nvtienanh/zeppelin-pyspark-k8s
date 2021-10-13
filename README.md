@@ -3,7 +3,7 @@ I'm using Zeppelin `0.10.0` (Python 3.7) and Spark `3.1.2` (with Python 3.7).
 ## Apache Spark
 - In **zeppelin-server.yaml** and **ingress.yaml** replace `zeppelin.yourdomain.com` to your domain
 - In **clusterissuer.yaml** replace `yourname@email.com` to your email
-- In **storage.yaml** replace `your-nfs-server-ip` to your NFS's IP. If you use other storage class, It's Ok, but make sure web have 3 PVC (**zeppelin-notebook-pvc**, **zeppelin-custom-k8s-pvc** and **zeppelin-server-conf-pvc**)
+- In **storage.yaml** replace `your-nfs-server-ip` to your NFS's IP. If you are using other storage class, tt's Ok, but make sure we have 3 PVC (**zeppelin-notebook-pvc**, **zeppelin-custom-k8s-pvc** and **zeppelin-server-conf-pvc**)
 
 Create namespace
 
@@ -16,9 +16,9 @@ Create Storage
 kubectl apply -f storage.yaml
 ```
 
-On **zeppelin-custom-k8s-pvc** (map to `/opt/zepplein/k8s` on cointainer) create folder **interpreter** then upload file **100-interpreter-spec.yaml** to that folder.
+On **zeppelin-custom-k8s-pvc** (map to `/opt/zepplein/k8s` on container) create folder **interpreter** then upload file **100-interpreter-spec.yaml** to that folder.
 
-On **zeppelin-server-conf-pvc** (map to `/opt/zepplein/conf` on cointainer) upload file **shiro.ini**.
+On **zeppelin-server-conf-pvc** (map to `/opt/zepplein/conf` on container) upload file **shiro.ini**.
 
 ```ini
 [users]
@@ -99,3 +99,5 @@ z.show(df)
 ![](images/zeppelin.png)
 ![](images/spark-job.png)
 ![](images/kubernetes-pod.png)
+
+Blog posts in vietnamese (https://nvtienanh.info/mo-dau-voi-apache-zeppelin-va-spark-tren-kubernetes/)
